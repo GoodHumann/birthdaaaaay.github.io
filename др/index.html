@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С днем рождения! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Анимированные звездочки/конфетти */
+        body::before {
+            content: "🎉🎈🎊🎁🎂";
+            position: absolute;
+            top: 10px;
+            left: 0;
+            width: 100%;
+            font-size: 24px;
+            opacity: 0.3;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100%) rotate(0deg); }
+            100% { transform: translateX(100%) rotate(360deg); }
+        }
+
+        .card {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            animation: appear 1s ease-out;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header-image {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            border-radius: 50%;
+            border: 5px solid white;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .header-image:hover {
+            transform: scale(1.1);
+        }
+
+        .header-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .birthday-message {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .birthday-message h2 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 1;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .caption {
+            transform: translateY(0);
+        }
+
+        .message-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #fff0f0 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 2px dashed #f093fb;
+            position: relative;
+        }
+
+        .message-box::before {
+            content: "💝";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            font-size: 30px;
+            background: white;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message-box p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .message-box .signature {
+            font-style: italic;
+            color: #f5576c;
+            font-size: 1.1em;
+            margin-top: 20px;
+        }
+
+        .emoji-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 2.5em;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .emoji-item {
+            animation: wave 2s infinite;
+            display: inline-block;
+        }
+
+        .emoji-item:nth-child(2) { animation-delay: 0.3s; }
+        .emoji-item:nth-child(3) { animation-delay: 0.6s; }
+        .emoji-item:nth-child(4) { animation-delay: 0.9s; }
+        .emoji-item:nth-child(5) { animation-delay: 1.2s; }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(20deg); }
+            75% { transform: rotate(-20deg); }
+        }
+
+        .wishes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .wish-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+
+        .wish-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .wish-item .wish-emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .wish-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .wish-item p {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .balloons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            font-size: 3em;
+        }
+
+        .balloons span {
+            animation: float-up 3s infinite ease-in-out;
+            filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        .balloons span:nth-child(2) { animation-delay: 0.4s; }
+        .balloons span:nth-child(3) { animation-delay: 0.8s; }
+        .balloons span:nth-child(4) { animation-delay: 1.2s; }
+        .balloons span:nth-child(5) { animation-delay: 1.6s; }
+
+        @keyframes float-up {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .cake-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #fce3e3 0%, #ffe3e3 100%);
+            border-radius: 20px;
+        }
+
+        .cake-image {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cake-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .candles {
+            font-size: 1.5em;
+            color: #f5576c;
+            animation: flicker 1.5s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .footer {
+            background: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f093fb;
+            opacity: 0.6;
+            animation: confetti-fall 3s infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Стили для загрузки изображений */
+        .image-upload-section {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .upload-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .upload-label:hover {
+            background: #764ba2;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .message-box p {
+                font-size: 1em;
+            }
+            
+            .wishes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Генерация конфетти -->
+    <script>
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.width = Math.random() * 10 + 5 + 'px';
+            confetti.style.height = confetti.style.width;
+            document.body.appendChild(confetti);
+        }
+    </script>
+
+    <div class="card">
+        <div class="header">
+            <h1>С днем рождения!</h1>
+            
+            <!-- МЕСТО ДЛЯ ВАШЕЙ ФОТОГРАФИИ ИМЕНИННИКА -->
+            <!-- Замените URL на путь к вашему изображению -->
+            <div class="header-image">
+                <img src="kartinka.webp" 
+                     alt="Фото именинника"
+                     onerror="this.src='data:image/svg+xml,...'">
+            </div>
+            
+            <div class="emoji-header">🎉🎂🎈</div>
+        </div>
+
+        <div class="content">
+            <!-- СЕКЦИЯ ДЛЯ ЗАГРУЗКИ СВОИХ ФОТОГРАФИЙ -->
+            <div class="image-upload-section">
+                <h3>📸 Добавьте свои фотографии</h3>
+                <label for="photo-upload" class="upload-label">Выберите фото</label>
+                <input type="file" id="photo-upload" accept="image/*" multiple>
+                <p style="margin-top: 10px; color: #666; font-size: 0.9em;">Можно выбрать несколько фото</p>
+            </div>
+
+            <!-- ГАЛЕРЕЯ ФОТОГРАФИЙ -->
+            <!-- Здесь будут отображаться ваши загруженные фото -->
+            <div class="photo-gallery" id="photo-gallery">
+                <!-- Примеры фото (замените URL на свои изображения) -->
+                <div class="gallery-item">
+                    <img src="pengvin.webp" 
+                         alt="Пингвин">
+                    <div class="caption">Счастливый момент ✨</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="kok.webp" 
+                         alt="Кокман Фримен">
+                    <div class="caption">Лучшие друзья 🎉</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="HA.webp" 
+                         alt="Хазюля">
+                    <div class="caption">Яркие эмоции 🌟</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="rhexeee.webp" 
+                         alt="rrrrrrrhexe">
+                    <div class="caption">Незабываемо 💫</div>
+                </div>
+            </div>
+
+            <div class="birthday-message">
+                <h2>Обращаюсь к моему любимому rhythm_exee_flex</h2>
+                
+                <div class="emoji-row">
+                    <span class="emoji-item">🎉</span>
+                    <span class="emoji-item">🎂</span>
+                    <span class="emoji-item">🎈</span>
+                    <span class="emoji-item">🎁</span>
+                    <span class="emoji-item">💝</span>
+                </div>
+
+                <div class="message-box">
+                    <p>✨ Поздравляем тебя с еще одним годиком в нашем дружном паровозном пати! ✨</p>
+                    <p>Желаю робуксов побольше, деняк и чтобы менталка оставлась такой же крепкой, как и всегда</p>
+                    <p class="signature">С любовью, твой XyEcOc</p>
+                </div>
+            </div>
+
+            <div class="balloons">
+                <span>🎈</span>
+                <span>🎈</span>
+                <span>🎈</span>
+                <span>🎈</span>
+                <span>🎈</span>
+            </div>
+
+            <div class="wishes-grid">
+                <div class="wish-item">
+                    <div class="wish-emoji">😊</div>
+                    <h3>РОБУКСЫ</h3>
+                    <p>Пусть Кокс Шедлецкий каждый день покупает тебе по 500 робуксав</p>
+                </div>
+                <div class="wish-item">
+                    <div class="wish-emoji">💪</div>
+                    <h3>Большой рука</h3>
+                    <p>Чтобы ей шлепать Гошу, Шебу и попку Коки</p>
+                </div>
+                <div class="wish-item">
+                    <div class="wish-emoji">💰</div>
+                    <h3>Удачи</h3>
+                    <p>Чтобы 50 на 50 не проигрывались и падали ранние леги</p>
+                </div>
+                <div class="wish-item">
+                    <div class="wish-emoji">🌟</div>
+                    <h3>Вдохновения</h3>
+                    <p>Чтобы ты могла рисовать крутые картинки в 4К</p>
+                </div>
+            </div>
+
+            <div class="cake-section">
+                <!-- МЕСТО ДЛЯ ФОТО ТОРТА -->
+                <!-- Замените URL на фото вашего торта -->
+                <div class="cake-image">
+                    <img src="images.jpg" 
+                         alt="Фото торта"
+                         onerror="this.src='data:image/svg+xml,...'">
+                </div>
+                
+                <div class="candles">🕯️ 🕯️ 🕯️</div>
+                <p>Задувай свечи и загадывай желание!</p>
+                
+                <button class="button" onclick="alert('🎉 С днем рождения! 🎉\nЖелаем всего самого наилучшего! 💝')">
+                    Сказать "Поздравляю!" 🎊
+                </button>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px; font-size: 1.2em; color: #666;">
+                <p>Пусть этот год будет самым лучшим 🌟</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>С днем рождения!</p>
+            <p style="font-size: 0.8em; margin-top: 10px;">✨ 2026 ✨</p>
+        </div>
+    </div>
+
+    <!-- Скрипт для загрузки фотографий -->
+    <script>
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const gallery = document.getElementById('photo-gallery');
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.alt = 'Загруженное фото';
+                    
+                    const caption = document.createElement('div');
+                    caption.className = 'caption';
+                    caption.textContent = '📸 Новое фото';
+                    
+                    galleryItem.appendChild(img);
+                    galleryItem.appendChild(caption);
+                    gallery.insertBefore(galleryItem, gallery.firstChild);
+                }
+                
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Дополнительная анимация при клике
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'LABEL' && e.target.tagName !== 'INPUT') {
+                const emojis = ['🎉', '🎂', '🎈', '🎁', '💝', '✨', '🌟'];
+                for (let i = 0; i < 5; i++) {
+                    const emoji = document.createElement('div');
+                    emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.left = e.clientX + (Math.random() - 0.5) * 100 + 'px';
+                    emoji.style.top = e.clientY + (Math.random() - 0.5) * 100 + 'px';
+                    emoji.style.fontSize = Math.random() * 30 + 20 + 'px';
+                    emoji.style.pointerEvents = 'none';
+                    emoji.style.zIndex = '9999';
+                    emoji.style.animation = 'float-up 1s forwards';
+                    document.body.appendChild(emoji);
+                    
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 1000);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
